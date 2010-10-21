@@ -1,4 +1,7 @@
 KaisenNakaji::Application.routes.draw do
+  get "store/index"
+  get "store" => "store#index", :as => :store
+
   resources :products
 
   # The priority is based upon order of creation:
