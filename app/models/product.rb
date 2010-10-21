@@ -5,5 +5,6 @@ class Product < ActiveRecord::Base
                       :message => " は GIF,JPG,PNG形式のurlでなくてはいけません" 
   scope :for_sale, :order => "created_at DESC"
   scope :name_like, lambda {|q| {:conditions => ['name like ?', "%#{q}%"]}}
+  scope :recent, lambda {|x| {:limit => x, :order => "created_at DESC"}} 
 
 end
