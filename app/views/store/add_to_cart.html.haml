@@ -1,11 +1,5 @@
 %h2 買い物カゴ
 
-%p 以下の商品が買い物カゴに追加されました
-
-%ul
-  %li= @product.name
-
-%p 現在のカゴの中身
 
 %ul
   - @cart.items.each do |item|
@@ -13,4 +7,6 @@
       = item.name
       &times;
       = item.quantity 
+
+= button_to "買い物カゴを空にする", :action => "empty_cart"
 
