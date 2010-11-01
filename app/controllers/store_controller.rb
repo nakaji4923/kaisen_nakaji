@@ -1,5 +1,6 @@
 class StoreController < ApplicationController
   def index
+    @cart = current_cart
     @products = Product.for_sale.paginate :page => params[:page], :per_page => 3
   end
 
@@ -7,7 +8,8 @@ class StoreController < ApplicationController
     @product = Product.find(params[:id])
     @cart = current_cart
     @cart.add_product(@product)
-    flash[:notice] = "#{@product.name}が買い物カゴに追加されました"
+    #flash[:notice] = "#{@product.name}が買い物カゴに追加されました"
+    redirect_to store_path, :notice => "#{@product.name}が買い物カゴに追加されました"
   end
 
   def empty_cart

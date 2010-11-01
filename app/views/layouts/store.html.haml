@@ -17,6 +17,8 @@
           #notice= flash[:notice]
         != yield
       #side.grid_5
+        #cart
+          = render :partial => 'cart', :object => @cart
         %ul#nav
           %li
             = link_to "トップ", store_path
