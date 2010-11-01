@@ -1,4 +1,6 @@
 class Product < ActiveRecord::Base
+  has_many :line_items
+
   validates_presence_of :name, :description, :image_url
   validates_numericality_of :price, :greater_than => 0, :only_integer => true
   validates_format_of :image_url, :with => %r{\.(gif|jpg|jpeg|png)\Z}i,
@@ -7,4 +9,5 @@ class Product < ActiveRecord::Base
   scope :name_like, lambda {|q| {:conditions => ['name like ?', "%#{q}%"]}}
   scope :recent, lambda {|x| {:limit => x, :order => "created_at DESC"}} 
 
+  #belongs_to 
 end
