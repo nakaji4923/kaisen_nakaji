@@ -25,9 +25,16 @@ class StoreController < ApplicationController
   end
 
   def add_to_cart
-    @product = Product.find(params[:id])
-    @cart.add_product(@product)
-    redirect_to store_path, :notice => "#{@product.name}が買い物カゴに追加されました"
+    #@product = Product.find(params[:id])
+    product = Product.find(params[:id])
+    @cart.add_product(product)
+    #redirect_to store_path, :notice => "#{@product.name}が買い物カゴに追加されました"
+    respond_to do |format|
+      format.js
+    end
+  rescue ActiveRecord::RecordNotFound
+    logger.error("無効な商品#{params[:id]}にアクセスしようとしました")
+    redirect_to store_path, :notice => "無効な商品です"
   end
 
   def empty_cart

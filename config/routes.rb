@@ -1,4 +1,9 @@
 KaisenNakaji::Application.routes.draw do
+  get "orders/index"
+
+  resources :shops
+  resources :orders
+
   get "store/index"
   get "store" => "store#index", :as => :store
   match "store/checkout", :as => :checkout
