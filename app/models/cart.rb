@@ -15,5 +15,9 @@ class Cart
   def total_price
     @items.map(&:price).sum
   end
+
+  def empty!
+    @items = nil
+  end
 end
 

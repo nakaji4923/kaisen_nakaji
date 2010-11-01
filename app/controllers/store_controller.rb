@@ -1,19 +1,37 @@
 class StoreController < ApplicationController
+  before_filter :set_cart
+
   def index
-    @cart = current_cart
     @products = Product.for_sale.paginate :page => params[:page], :per_page => 3
+  end
+
+  def save_order
+    @order = Order.new(params[:order])
+    @order.add_line_items_from_cart(@cart)
+    if @order.save
+      @cart.empty!
+      redirect_to store_path, :notice => "ご注文ありがとうございます"
+    else
+      render checkout_path
+    end
+  end
+
+  def checkout
+    if @cart.nil? || @cart.items.empty?
+      redirect_to store_path, :notice => "カートは現在空です"
+    end
+
+    @order = Order.new
   end
 
   def add_to_cart
     @product = Product.find(params[:id])
-    @cart = current_cart
     @cart.add_product(@product)
-    #flash[:notice] = "#{@product.name}が買い物カゴに追加されました"
     redirect_to store_path, :notice => "#{@product.name}が買い物カゴに追加されました"
   end
 
   def empty_cart
-    session[:cart] = nil
+    @cart.empty!
     redirect_to store_path, :notice => "カートは現在空です"
   end
 
@@ -27,5 +45,9 @@ class StoreController < ApplicationController
 #      session[:cart]
 #    end
 
+  end
+
+  def set_cart
+    @cart = current_cart
   end
 end
