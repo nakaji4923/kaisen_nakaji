@@ -10,6 +10,8 @@ KaisenNakaji::Application.routes.draw do
   post "store/add_to_cart/:id" => "store#add_to_cart"
   post "store/empty_cart" => "store#empty_cart"
   post "store/save_order" => "store#save_order", :as => :save_order
+  
+  get "orders/edit_order/:id" => "orders#edit_order"
 
   resources :products
 

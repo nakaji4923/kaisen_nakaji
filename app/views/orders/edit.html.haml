@@ -1,0 +1,26 @@
+%h2 注文情報の編集
+
+= form_for @order do |form|
+  .field
+    = form.label :name, "氏名："
+    = form.text_field :name, :size => 40
+
+  .field
+    = form.label :address, "住所："
+    = form.text_area :address, :rows => 3, :cols => 40
+
+  .field
+    = form.label :email, "Ｅメール："
+    = form.text_field :email, :size => 40
+
+  .field
+    = form.label :pay_type, "支払い方法："
+    = form.select :pay_type, Order::PAYMENT_TYPES
+
+  .actions
+    = form.submit "保存", :class => "submit"
+
+%p
+  =link_to "戻る", orders_path
+%br
+
