@@ -9,7 +9,8 @@ class OrdersController < ApplicationController
 
   def update
     @order = Order.find(params[:id])
-    if @order.update_attributes!(params[:order])
+    #if @order.update_attributes!(params[:order])  # line_itemにvalidateを追加したから、!マークがいらない。
+    if @order.update_attributes(params[:order])
       redirect_to orders_path, :notice => "注文情報を更新しました"
     else
       render :action => "edit"
