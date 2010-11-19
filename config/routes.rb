@@ -15,7 +15,16 @@ KaisenNakaji::Application.routes.draw do
   
   get "orders/edit_order/:id" => "orders#edit_order"
 
-  resources :products
+  #resources :products
+  resources :products do
+    collection do
+      get "sold"
+    end
+
+    member do
+      get "who_bought"
+    end
+  end
 
   root :to => "store#index"
   # The priority is based upon order of creation:

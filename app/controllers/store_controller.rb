@@ -2,6 +2,8 @@ class StoreController < ApplicationController
   before_filter :set_cart
 
   def index
+    @hot_selling_products = LineItem.count(:group => :product_id).sort_by{|id, count| -count }[0.3].map{|id, count| Product.find(id)}
+    @new_item = Product.recent(1)
     @products = Product.for_sale.paginate :page => params[:page], :per_page => 3
   end
 
