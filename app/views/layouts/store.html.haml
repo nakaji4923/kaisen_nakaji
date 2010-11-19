@@ -3,7 +3,7 @@
   %head
     %meta{ "http-qeuiv" => "Content-Type", :content => "text/html: charset=utf8" }
     %title 買鮮カタログ
-    != stylesheet_link_tag 'reset', 'text', '960', 'store'
+    != stylesheet_link_tag 'reset', 'text', '960', 'store', 'screen'
     != javascript_include_tag :defaults
     != csrf_meta_tag
   %body#store.container_12
@@ -19,8 +19,9 @@
           #alert= flash[:alert]
         != yield
       #side.grid_5
-        #cart
-          = render :partial => 'cart', :object => @cart
+        - if @cart
+          #cart
+            = render :partial => 'cart', :object => @cart
         %ul#nav
           %li
             = link_to "トップ", store_path
@@ -30,6 +31,19 @@
             %a{:href => "#"}お問合わせ
           %li
             %a{:href => "#"}ご利用ガイド
+
+        - if admin_signed_in?
+          %div.title
+            管理メニュー
+
+          %ul#nav
+            %li
+              = link_to "商品管理", products_path
+            %li
+              = link_to "注文情報管理", orders_path
+            %li
+              = link_to "ログアウト", destroy_admin_session_path
+
       .clear
     #footer.grid_12
       %p Copyright (C) 2010 Enishi Tech Inc. AllRights Reserved.
