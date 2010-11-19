@@ -1,4 +1,6 @@
 KaisenNakaji::Application.routes.draw do
+  devise_for :admins
+
   get "orders/index"
 
   resources :shops
@@ -15,6 +17,7 @@ KaisenNakaji::Application.routes.draw do
 
   resources :products
 
+  root :to => "store#index"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

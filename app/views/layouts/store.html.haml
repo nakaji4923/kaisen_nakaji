@@ -15,6 +15,8 @@
       #main.grid_5.suffix_2
         - if flash[:notice]
           #notice= flash[:notice]
+        - if flash[:alert]
+          #alert= flash[:alert]
         != yield
       #side.grid_5
         #cart
